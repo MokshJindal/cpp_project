@@ -1,8 +1,9 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import datetime
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app)
 
 # Dummy database
@@ -18,7 +19,7 @@ properties = [
         "deposit_months": 4,
         "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80",
         "description": "Modern apartment in the heart of BKC with city views, gym, and 24/7 security.",
-        "available": True
+        "available": True,
     },
     {
         "id": 2,
@@ -28,7 +29,7 @@ properties = [
         "deposit_months": 3,
         "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80",
         "description": "Spacious villa with private pool, lush garden, and modern interiors in Whitefield.",
-        "available": True
+        "available": True,
     },
     {
         "id": 3,
@@ -38,7 +39,7 @@ properties = [
         "deposit_months": 2,
         "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80",
         "description": "Premium 2BHK in Banjara Hills with covered parking, club house, and lake view.",
-        "available": True
+        "available": True,
     },
     {
         "id": 4,
@@ -48,17 +49,22 @@ properties = [
         "deposit_months": 3,
         "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80",
         "description": "Stylish studio in CP with metro access, furnished interiors, and co-working space.",
-        "available": True
-    }
+        "available": True,
+    },
 ]
 
 
 # ──────────────────────────────────────────────
-#  HOME
+#  FRONTEND ROUTES
 # ──────────────────────────────────────────────
 @app.route('/')
 def home():
-    return "Rental Deposit API Running"
+    return send_from_directory('.', 'index.html')
+
+
+@app.route('/healthz', methods=['GET'])
+def healthz():
+    return jsonify({"status": "ok"})
 
 
 # ──────────────────────────────────────────────
@@ -68,12 +74,12 @@ def home():
 def add_deposit():
     data = request.json
     deposit = {
-        "tenant":   data['tenant'],
+        "tenant": data['tenant'],
         "landlord": data['landlord'],
-        "amount":   data['amount'],
-        "rate":     data['rate'],
-        "time":     data['time'],
-        "date":     str(datetime.datetime.now())
+        "amount": data['amount'],
+        "rate": data['rate'],
+        "time": data['time'],
+        "date": str(datetime.datetime.now()),
     }
     deposits.append(deposit)
     return jsonify({"message": "Deposit added successfully"})
@@ -89,11 +95,11 @@ def calculate(index):
     if index >= len(deposits):
         return jsonify({"error": "Deposit not found"}), 404
     deposit = deposits[index]
-    P  = deposit['amount']
-    R  = deposit['rate']
-    T  = deposit['time']
-    SI = (P * R * T) / 100
-    return jsonify({"principal": P, "interest": SI, "total": P + SI})
+    principal = deposit['amount']
+    rate = deposit['rate']
+    time = deposit['time']
+    simple_interest = (principal * rate * time) / 100
+    return jsonify({"principal": principal, "interest": simple_interest, "total": principal + simple_interest})
 
 
 # ──────────────────────────────────────────────
@@ -155,15 +161,15 @@ def add_property():
 
     new_id = max(p["id"] for p in properties) + 1 if properties else 1
     prop = {
-        "id":             new_id,
-        "name":           data['name'].strip(),
-        "location":       data['location'].strip(),
-        "rent":           rent,
+        "id": new_id,
+        "name": data['name'].strip(),
+        "location": data['location'].strip(),
+        "rent": rent,
         "deposit_months": deposit_months,
-        "image":          data.get('image') or 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80',
-        "description":    data.get('description', '').strip(),
-        "available":      data.get('available', True),
-        "date_added":     str(datetime.datetime.now())
+        "image": data.get('image') or 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80',
+        "description": data.get('description', '').strip(),
+        "available": data.get('available', True),
+        "date_added": str(datetime.datetime.now()),
     }
     properties.append(prop)
     return jsonify({"message": "Property added successfully", "property": prop}), 201
@@ -204,10 +210,10 @@ def property_deposit(property_id):
         return jsonify({"error": "Property not found"}), 404
     deposit_amount = prop['rent'] * prop['deposit_months']
     return jsonify({
-        "property":       prop['name'],
-        "rent":           prop['rent'],
+        "property": prop['name'],
+        "rent": prop['rent'],
         "deposit_months": prop['deposit_months'],
-        "deposit_amount": deposit_amount
+        "deposit_amount": deposit_amount,
     })
 
 
@@ -224,35 +230,35 @@ def toggle_availability(property_id):
 # ──────────────────────────────────────────────
 #  STATS / DASHBOARD ROUTE  (for Growth page)
 # ──────────────────────────────────────────────
-
 @app.route('/get_stats', methods=['GET'])
 def get_stats():
-    total_properties   = len(properties)
-    available_count    = sum(1 for p in properties if p['available'])
-    unavailable_count  = total_properties - available_count
+    total_properties = len(properties)
+    available_count = sum(1 for p in properties if p['available'])
+    unavailable_count = total_properties - available_count
     total_deposit_pool = sum(p['rent'] * p['deposit_months'] for p in properties)
-    avg_rent           = (sum(p['rent'] for p in properties) / total_properties) if total_properties else 0
+    avg_rent = (sum(p['rent'] for p in properties) / total_properties) if total_properties else 0
 
-    total_deposits     = len(deposits)
-    total_principal    = sum(d['amount'] for d in deposits)
-    total_interest     = sum((d['amount'] * d['rate'] * d['time']) / 100 for d in deposits)
+    total_deposits = len(deposits)
+    total_principal = sum(d['amount'] for d in deposits)
+    total_interest = sum((d['amount'] * d['rate'] * d['time']) / 100 for d in deposits)
 
     return jsonify({
         "properties": {
-            "total":             total_properties,
-            "available":         available_count,
-            "unavailable":       unavailable_count,
+            "total": total_properties,
+            "available": available_count,
+            "unavailable": unavailable_count,
             "total_deposit_pool": total_deposit_pool,
-            "avg_rent":          round(avg_rent, 2)
+            "avg_rent": round(avg_rent, 2),
         },
         "deposits": {
-            "total":          total_deposits,
+            "total": total_deposits,
             "total_principal": total_principal,
-            "total_interest":  round(total_interest, 2),
-            "total_value":     round(total_principal + total_interest, 2)
-        }
+            "total_interest": round(total_interest, 2),
+            "total_value": round(total_principal + total_interest, 2),
+        },
     })
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)

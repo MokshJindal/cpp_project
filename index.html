@@ -1214,7 +1214,7 @@
             Property</button>
         </div>
         <div class="prop-grid" id="propGrid">
-          <p style="opacity:.7;color:white">⚠️ Connect to backend (Flask on port 5000) to load properties.</p>
+          <p style="opacity:.7;color:white">Loading properties…</p>
         </div>
       </div>
     </div>
@@ -1330,7 +1330,7 @@
      JAVASCRIPT
 ══════════════════════════════ -->
   <script>
-    const API = 'http://127.0.0.1:5000';
+    const API = window.location.protocol === 'file:' ? 'http://127.0.0.1:5000' : window.location.origin;
 
     /* deposits stored locally when no backend */
     let localDeposits = [];
