@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SecureNest — Turn Deposits Into Earning Assets</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ── CSS VARIABLES ── */
+    :root {
+      --navy: #0f1b2d;
+      --navy2: #162236;
+      --blue: #1a6ef5;
+      --blue-light: #4a8fff;
+      --blue-pale: #e8f0fe;
+      --text: #1a1a2e;
+      --muted: #6b7280;
+      --white: #ffffff;
+      --bg-light: #f0f4ff;
+      --gradient-app: linear-gradient(135deg, #5f2c82, #49a09d);
+      --card-shadow: 0 4px 24px rgba(26, 110, 245, 0.10);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      scroll-behavior: smooth;
+    }
+
+    /* ══════════════════════════════
+   SECTION 1 — HERO (SecureNest)
+══════════════════════════════ */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      background: linear-gradient(rgba(10, 20, 40, 0.72), rgba(10, 20, 40, 0.65)),
+        url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1600&q=80') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    .sn-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 56px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 20, 40, 0.45);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .sn-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sn-logo span {
+      color: var(--blue-light);
+    }
+
+    .sn-logo svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .sn-nav-links {
+      display: flex;
+      gap: 4px;
+    }
+
+    .sn-nav-links a {
+      color: rgba(255, 255, 255, 0.78);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all .2s;
+    }
+
+    .sn-nav-links a:hover {
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-login {
+      background: var(--blue);
+      color: var(--white) !important;
+      border-radius: 20px !important;
+      padding: 8px 22px !important;
+      font-weight: 600 !important;
+      transition: opacity .2s !important;
+    }
+
+    .btn-login:hover {
+      opacity: .85 !important;
+      background: var(--blue) !important;
+    }
+
+    /* HERO CONTENT */
+    .hero-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 56px 80px;
+    }
+
+    .hero-content h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(42px, 6vw, 72px);
+      color: var(--white);
+      line-height: 1.1;
+      max-width: 680px;
+      margin-bottom: 18px;
+    }
+
+    .hero-content h1 em {
+      color: var(--blue-light);
+      font-style: normal;
+    }
+
+    .hero-content p {
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 16px;
+      max-width: 540px;
+      line-height: 1.65;
+      margin-bottom: 32px;
+    }
+
+    .btn-get-started {
+      display: inline-block;
+      background: var(--blue);
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 14px 34px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(26, 110, 245, 0.45);
+    }
+
+    .btn-get-started:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(26, 110, 245, 0.55);
+    }
+
+
+    /* ══════════════════════════════
+   SECTION 2 — HOW IT WORKS
+══════════════════════════════ */
+    .how-section {
+      background: var(--bg-light);
+      padding: 90px 56px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(32px, 4vw, 48px);
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+
+    .section-divider {
+      width: 56px;
+      height: 3px;
+      background: var(--blue);
+      border-radius: 3px;
+      margin: 0 auto;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .step-card {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .step-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 36px rgba(26, 110, 245, 0.18);
+    }
+
+    .step-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .step-body {
+      padding: 22px 24px 26px;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 14px;
+    }
+
+    .step-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .step-body p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* wide step card for step 4 */
+    .step-card.wide {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .step-card.wide .step-img {
+      width: 55%;
+      height: 220px;
+      flex-shrink: 0;
+    }
+
+    .step-card.wide .step-body {
+      padding: 32px 40px;
+    }
+
+    .step-card.wide h3 {
+      font-size: 20px;
+    }
+
+    .step-card.wide p {
+      font-size: 15px;
+    }
+
+
+    /* ══════════════════════════════
+   SECTION 3 — APP DASHBOARD
+══════════════════════════════ */
+    .app-section {
+      background: linear-gradient(135deg, #5f2c82, #49a09d);
+      padding: 70px 40px;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .app-section .section-header h2 {
+      color: var(--white);
+    }
+
+    .app-section .section-divider {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    /* inner app shell */
+    .app-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(14px);
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* app navbar */
+    .app-navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 28px;
+      background: rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .app-logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .app-nav-links {
+      display: flex;
+      gap: 4px;
+    }
+
+    .app-nav-links button {
+      background: transparent;
+      color: rgba(255, 255, 255, 0.75);
+      border: none;
+      padding: 7px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: 'DM Sans', sans-serif;
+      transition: all .2s;
+    }
+
+    .app-nav-links button:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: var(--white);
+    }
+
+    .app-nav-links button.active {
+      background: rgba(255, 255, 255, 0.22);
+      color: var(--white);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+    }
+
+    .app-user {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* pages */
+    .app-page {
+      display: none;
+      padding: 28px;
+    }
+
+    .app-page.active {
+      display: block;
+    }
+
+    /* deposit layout */
+    .dep-layout {
+      display: flex;
+      gap: 24px;
+    }
+
+    .dep-left {
+      width: 32%;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(15px);
+      padding: 24px;
+      border-radius: 20px;
+      height: fit-content;
+    }
+
+    .dep-left h2 {
+      margin-bottom: 16px;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .dep-input {
+      width: 100%;
+      padding: 10px 14px;
+      margin: 6px 0;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 13px;
+      color: #333;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .dep-btn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      transition: opacity .2s;
+    }
+
+    .dep-btn:hover {
+      opacity: .88;
+    }
+
+    .dep-right {
+      flex: 1;
+    }
+
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .stat-cards {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .stat-card {
+      flex: 1;
+      padding: 16px 18px;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 14px;
+      color: #222;
+    }
+
+    .stat-card small {
+      display: block;
+      font-size: 10px;
+      font-weight: 400;
+      opacity: .6;
+      margin-bottom: 3px;
+    }
+
+    .sc1 {
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+    }
+
+    .sc2 {
+      background: linear-gradient(135deg, #d4fc79, #96e6a1);
+    }
+
+    .sc3 {
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    }
+
+    .table-wrap {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 18px;
+      padding: 18px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 11px 13px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--white);
+    }
+
+    th {
+      opacity: .65;
+      font-weight: 600;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    /* properties page */
+    .prop-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .add-toggle-btn {
+      padding: 9px 18px;
+      border-radius: 12px;
+      border: none;
+      background: rgba(255, 255, 255, 0.18);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      backdrop-filter: blur(8px);
+      transition: background .2s;
+    }
+
+    .add-toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .add-prop-form {
+      display: none;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(15px);
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 22px;
+    }
+
+    .add-prop-form.open {
+      display: block;
+    }
+
+    .add-prop-form h3 {
+      margin-bottom: 14px;
+      font-size: 16px;
+      color: var(--white);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .prop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 22px;
+    }
+
+    .prop-card {
+      background: var(--white);
+      border-radius: 18px;
+      overflow: hidden;
+      color: #1a1a2e;
+      transition: transform .25s, box-shadow .25s;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .prop-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    }
+
+    .prop-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .prop-body {
+      padding: 16px 18px;
+    }
+
+    .prop-name {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .prop-loc {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .badge.avail {
+      background: #e6f9eb;
+      color: #27ae60;
+    }
+
+    .badge.unavail {
+      background: #fdecea;
+      color: #e74c3c;
+    }
+
+    .prop-meta {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .prop-meta-item {
+      background: #f7f7f7;
+      border-radius: 10px;
+      padding: 8px 10px;
+      flex: 1;
+      text-align: center;
+    }
+
+    .prop-meta-item small {
+      display: block;
+      font-size: 10px;
+      color: #999;
+      margin-bottom: 2px;
+    }
+
+    .prop-meta-item strong {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .prop-desc {
+      font-size: 11px;
+      color: #888;
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+
+    .prop-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-details {
+      flex: 1;
+      padding: 9px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(135deg, #2575fc, #6a11cb);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: 'DM Sans', sans-serif;
+      transition: opacity .2s;
+    }
+
+    .btn-details:hover {
+      opacity: .85;
+    }
+
+    .btn-toggle {
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: none;
+      background: #f0f0f0;
+      color: #555;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: 'DM Sans', sans-serif;
+      transition: background .2s;
+    }
+
+    .btn-toggle:hover {
+      background: #e0e0e0;
+    }
+
+    .prop-card.unavailable {
+      opacity: .6;
+    }
+
+    /* modal */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 500;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-bg.open {
+      display: flex;
+    }
+
+    .modal {
+      background: white;
+      color: #1a1a2e;
+      border-radius: 22px;
+      width: 90%;
+      max-width: 460px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      animation: modalIn .25s ease;
+    }
+
+    @keyframes modalIn {
+      from {
+        transform: scale(.92);
+        opacity: 0
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1
+      }
+    }
+
+    .modal img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .modal-body {
+      padding: 22px;
+    }
+
+    .modal-body h2 {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .mloc {
+      color: #888;
+      font-size: 12px;
+      margin-bottom: 14px;
+    }
+
+    .modal-info {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .modal-info-item {
+      background: #f5f5f5;
+      padding: 10px 12px;
+      border-radius: 10px;
+      flex: 1;
+      text-align: center;
+    }
+
+    .modal-info-item small {
+      display: block;
+      font-size: 10px;
+      color: #999;
+      margin-bottom: 2px;
+    }
+
+    .modal-info-item strong {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .modal-dep-box {
+      background: linear-gradient(135deg, #eef4ff, #e0ecff);
+      border: 1px solid #b3d0ff;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .modal-dep-box p {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .modal-dep-box .big {
+      font-size: 22px;
+      font-weight: 700;
+      color: #2575fc;
+      margin-top: 2px;
+    }
+
+    .modal-desc {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .modal-close {
+      width: 100%;
+      padding: 11px;
+      border-radius: 10px;
+      border: none;
+      background: #f0f0f0;
+      color: #555;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      transition: background .2s;
+    }
+
+    .modal-close:hover {
+      background: #e0e0e0;
+    }
+
+
+    /* ══════════════════════════════
+   SECTION 4 — FAQ
+══════════════════════════════ */
+    .faq-section {
+      background: var(--bg-light);
+      padding: 90px 56px;
+    }
+
+    .faq-list {
+      max-width: 780px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .faq-item {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 24px 28px;
+      box-shadow: 0 2px 16px rgba(26, 110, 245, 0.07);
+      border-left: 3px solid var(--blue);
+    }
+
+    .faq-item h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 10px;
+    }
+
+    .faq-item p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+
+    /* ══════════════════════════════
+   SECTION 5 — ABOUT / FOOTER
+══════════════════════════════ */
+    .about-section {
+      background: linear-gradient(135deg, #5f2c82, #49a09d);
+      padding: 90px 56px;
+      color: var(--white);
+    }
+
+    .about-section .section-header h2 {
+      color: var(--white);
+    }
+
+    .about-section .section-divider {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .about-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .about-mission h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .about-mission p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.82);
+      margin-bottom: 14px;
+    }
+
+    .contact-box {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .contact-box h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .contact-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+
+    .contact-item p {
+      font-size: 13px;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .contact-item strong {
+      font-size: 14px;
+      color: var(--white);
+    }
+
+    .footer-bar {
+      background: var(--navy);
+      padding: 20px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-bar p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .footer-logo span {
+      color: var(--blue-light);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:768px) {
+      .sn-nav {
+        padding: 16px 20px;
+      }
+
+      .sn-nav-links {
+        display: none;
+      }
+
+      .hero-content {
+        padding: 0 20px 60px;
+      }
+
+      .how-section,
+      .faq-section,
+      .about-section {
+        padding: 60px 20px;
+      }
+
+      .step-card.wide {
+        flex-direction: column;
+        grid-column: auto;
+      }
+
+      .step-card.wide .step-img {
+        width: 100%;
+        height: 160px;
+      }
+
+      .dep-layout {
+        flex-direction: column;
+      }
+
+      .dep-left {
+        width: 100%;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bar {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+
+      .app-section {
+        padding: 50px 16px;
+      }
+
+      .app-page {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════
+     SECTION 1: HERO
+══════════════════════════════ -->
+  <section class="hero-section">
+    <!-- Sticky Nav -->
+    <nav class="sn-nav">
+      <div class="sn-logo">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L3 9v12h6v-6h6v6h6V9L12 2z" fill="#4a8fff" opacity="0.9" />
+          <path d="M9 21v-6h6v6" stroke="white" stroke-width="1.5" fill="none" />
+        </svg>
+        Secure <span>Nest</span>
+      </div>
+      <div class="sn-nav-links">
+        <a href="#hero">Home</a>
+        <a href="#how">How It Works</a>
+
+        <a href="#app">Properties</a>
+        <a href="#faq">FAQs</a>
+        <a href="#app" class="btn-login">Login</a>
+      </div>
+    </nav>
+
+    <!-- Hero Text -->
+    <div class="hero-content" id="hero">
+      <h1>Turn Rental Security Deposits Into <em>Earning Assets</em></h1>
+      <p>Billions of rupees sit idle as rental deposits. SecureNest converts this dead capital into interest earning
+        assets while protecting landlords.</p>
+      <a href="#app" class="btn-get-started">Get Started</a>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════
+     SECTION 2: HOW IT WORKS
+══════════════════════════════ -->
+  <section class="how-section" id="how">
+    <div class="section-header">
+      <h2>How It Works</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="steps-grid">
+      <!-- Step 1 -->
+      <div class="step-card">
+        <img class="step-img" src="https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=600&q=80"
+          alt="Deposit payment"
+          onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80'">
+        <div class="step-body">
+          <div class="step-num">1</div>
+          <h3>Deposit</h3>
+          <p>Tenant pays deposit using simulated UPI or card payment via the SecureNest platform.</p>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-card">
+        <img class="step-img" src="https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=600&q=80"
+          alt="Escrow account"
+          onerror="this.src='https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80'">
+        <div class="step-body">
+          <div class="step-num">2</div>
+          <h3>Escrow Account</h3>
+          <p>Platform creates a smart escrow account and verifies KYC for both landlord and tenant.</p>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-card">
+        <img class="step-img" src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80"
+          alt="Investment dashboard"
+          onerror="this.src='https://images.unsplash.com/photo-1518183214770-9cffbec72538?w=600&q=80'">
+        <div class="step-body">
+          <div class="step-num">3</div>
+          <h3>Investment</h3>
+          <p>Funds are automatically invested into a secure liquid mutual fund, generating returns.</p>
+        </div>
+      </div>
+
+      <!-- Step 4 (wide) -->
+      <div class="step-card wide">
+        <img class="step-img" src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=900&q=80"
+          alt="Settlement signing"
+          onerror="this.src='https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=80'">
+        <div class="step-body">
+          <div class="step-num">4</div>
+          <h3>Settlement</h3>
+          <p>At lease completion, the landlord triggers the release in their dashboard and funds return to the tenant's
+            primary bank account with accrued interest — automatically, no hassle.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════
+     SECTION 3: APP DASHBOARD
+══════════════════════════════ -->
+  <section class="app-section" id="app">
+    <div class="section-header" style="margin-bottom:36px">
+      <h2>DepositGrow Dashboard</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="app-shell">
+      <!-- App Navbar -->
+      <div class="app-navbar">
+        <div class="app-logo">🏠 DepositGrow</div>
+        <div class="app-nav-links">
+          <button class="active" onclick="showAppPage('deposits',this)">📊 Dashboard</button>
+          <button onclick="showAppPage('properties',this)">🏘️ Properties</button>
+        </div>
+        <div class="app-user">👤 User</div>
+      </div>
+
+      <!-- DEPOSITS PAGE -->
+      <div id="app-deposits" class="app-page active">
+        <div class="dep-layout">
+          <div class="dep-left">
+            <h2>Add New Deposit</h2>
+            <input class="dep-input" id="tenant" placeholder="Tenant Name">
+            <input class="dep-input" id="landlord" placeholder="Landlord Name">
+            <input class="dep-input" id="amount" type="number" placeholder="Amount (₹)">
+            <input class="dep-input" id="rate" type="number" placeholder="Interest Rate (%)">
+            <input class="dep-input" id="time" type="number" placeholder="Duration (months)">
+            <button class="dep-btn" onclick="addDeposit()">+ Add Deposit</button>
+          </div>
+
+          <div class="dep-right">
+            <div class="page-title">Grow While You Stay 📈</div>
+            <div class="stat-cards">
+              <div class="stat-card sc1" id="totalDeposit">
+                <small>Total Principal</small>₹0
+              </div>
+              <div class="stat-card sc2" id="totalReturn">
+                <small>Total Interest Earned</small>₹0
+              </div>
+              <div class="stat-card sc3" id="avgRate">
+                <small>Avg Rate</small>—
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Tenant</th>
+                    <th>Landlord</th>
+                    <th>Amount</th>
+                    <th>Rate</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody id="tableBody">
+                  <tr>
+                    <td colspan="5" style="opacity:.5;padding:18px">No deposits yet</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROPERTIES PAGE -->
+      <div id="app-properties" class="app-page">
+        <div class="prop-header">
+          <div class="page-title">🔒 Secure Nest — Properties</div>
+          <button class="add-toggle-btn" onclick="toggleAddProp()">+ Add Property</button>
+        </div>
+        <div class="add-prop-form" id="addPropForm">
+          <h3>Add New Property</h3>
+          <div class="form-row">
+            <input class="dep-input" id="pName" placeholder="Property Name">
+            <input class="dep-input" id="pLocation" placeholder="Location (e.g. BKC, Mumbai)">
+          </div>
+          <div class="form-row" style="margin-top:10px">
+            <input class="dep-input" id="pRent" type="number" placeholder="Monthly Rent (₹)">
+            <input class="dep-input" id="pMonths" type="number" placeholder="Deposit Months">
+          </div>
+          <input class="dep-input" id="pDesc" placeholder="Short Description" style="margin-top:10px">
+          <input class="dep-input" id="pImage" placeholder="Image URL (optional)" style="margin-top:10px">
+          <button class="dep-btn" style="width:auto;padding:10px 26px;margin-top:14px" onclick="addProperty()">Submit
+            Property</button>
+        </div>
+        <div class="prop-grid" id="propGrid">
+          <p style="opacity:.7;color:white">⚠️ Connect to backend (Flask on port 5000) to load properties.</p>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal-bg" id="modalBg" onclick="closeBg(event)">
+      <div class="modal">
+        <img id="mImg" src="" alt="">
+        <div class="modal-body">
+          <h2 id="mName"></h2>
+          <p class="mloc" id="mLoc"></p>
+          <div class="modal-info">
+            <div class="modal-info-item"><small>Monthly Rent</small><strong id="mRent"></strong></div>
+            <div class="modal-info-item"><small>Deposit Period</small><strong id="mMonths"></strong></div>
+          </div>
+          <div class="modal-dep-box">
+            <p>Security Deposit Required</p>
+            <div class="big" id="mDeposit"></div>
+          </div>
+          <p class="modal-desc" id="mDesc"></p>
+          <button class="modal-close" onclick="document.getElementById('modalBg').classList.remove('open')">✕
+            Close</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════
+     SECTION 4: FAQ
+══════════════════════════════ -->
+  <section class="faq-section" id="faq">
+    <div class="section-header">
+      <h2>Frequently Asked Questions</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Why is the deposit invested?</h3>
+        <p>Standard deposits stay idle. We use liquid mutual funds to safely generate returns on that "dead capital"
+          without compromising liquidity.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is the landlord's money secure?</h3>
+        <p>Absolutely. The money is lien-marked in the landlord's favor. They have a guaranteed claim on the principal
+          amount, much like a bank guarantee.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How does the tenant get the money back?</h3>
+        <p>Once the lease ends and the landlord triggers the release in their dashboard, funds move back to the tenant's
+          primary bank account with interest.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════
+     SECTION 5: ABOUT
+══════════════════════════════ -->
+  <section class="about-section" id="about">
+    <div class="section-header">
+      <h2>About SecureNest</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-mission">
+        <h3>Our Mission</h3>
+        <p>SecureNest was founded on the belief that rental security deposits shouldn't be "dead capital." In India
+          alone, billions of rupees are locked away in non-interest-earning accounts. We bridge the gap between tenant
+          liquidity and landlord security through smart financial technology.</p>
+        <p>Our platform ensures that every rupee of a security deposit is working, earning interest for the tenant while
+          providing a lien-marked, bank-grade guarantee for the property owner.</p>
+      </div>
+
+      <div class="contact-box">
+        <h3>Get in Touch</h3>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <strong>Email</strong>
+            <p>contact@securenest.example.com</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <strong>Phone</strong>
+            <p>+91 8920577593<br>+91 81305 10857<br>+91 88821 94113<br>+91 81787 01419</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <strong>Address</strong>
+            <p>Azad Hind Fauj Marg, Sector 3,<br>Dwarka, New Delhi, Delhi 110078 (NSUT)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="footer-bar">
+    <div class="footer-logo">Secure<span>Nest</span></div>
+    <p>© 2026 SecureNest. All rights reserved.</p>
+    <p>Built at NSUT, New Delhi</p>
+  </div>
+
+
+  <!-- ══════════════════════════════
+     JAVASCRIPT
+══════════════════════════════ -->
+  <script>
+    const API = 'http://127.0.0.1:5000';
+
+    /* deposits stored locally when no backend */
+    let localDeposits = [];
+
+    function showAppPage(name, btn) {
+      document.querySelectorAll('.app-page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.app-nav-links button').forEach(b => b.classList.remove('active'));
+      document.getElementById('app-' + name).classList.add('active');
+      btn.classList.add('active');
+      if (name === 'properties') loadProperties();
+      if (name === 'deposits') renderDeposits();
+    }
+
+    /* ── DEPOSITS ── */
+    function addDeposit() {
+      const t = document.getElementById('tenant').value.trim();
+      const l = document.getElementById('landlord').value.trim();
+      const a = parseFloat(document.getElementById('amount').value);
+      const r = parseFloat(document.getElementById('rate').value);
+      const ti = parseFloat(document.getElementById('time').value);
+      if (!t || !l || !a) return alert('Please fill in all fields.');
+
+      fetch(API + '/add_deposit', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({tenant: t, landlord: l, amount: a, rate: r || 6, time: ti || 12})
+      }).then(() => loadDeposits())
+        .catch(() => {
+          localDeposits.push({tenant: t, landlord: l, amount: a, rate: r || 6, time: ti || 12});
+          renderDeposits();
+        });
+      ['tenant', 'landlord', 'amount', 'rate', 'time'].forEach(id => document.getElementById(id).value = '');
+    }
+
+    function renderDeposits() {
+      let rows = '', total = 0, returns = 0, rateSum = 0;
+      localDeposits.forEach(d => {
+        total += d.amount;
+        returns += (d.amount * d.rate * d.time) / 1200;
+        rateSum += d.rate;
+        rows += `<tr>
+      <td>${d.tenant}</td><td>${d.landlord}</td>
+      <td>₹${d.amount.toLocaleString('en-IN')}</td>
+      <td>${d.rate}%</td><td>${d.time}mo</td>
+    </tr>`;
+      });
+      document.getElementById('tableBody').innerHTML = rows ||
+        '<tr><td colspan="5" style="opacity:.5;padding:18px">No deposits yet</td></tr>';
+      document.getElementById('totalDeposit').innerHTML =
+        `<small>Total Principal</small>₹${total.toLocaleString('en-IN')}`;
+      document.getElementById('totalReturn').innerHTML =
+        `<small>Total Interest Earned</small>₹${Math.round(returns).toLocaleString('en-IN')}`;
+      document.getElementById('avgRate').innerHTML =
+        `<small>Avg Rate</small>${localDeposits.length ? (rateSum / localDeposits.length).toFixed(1) + '%' : '—'}`;
+    }
+
+    function loadDeposits() {
+      fetch(API + '/get_deposits')
+        .then(r => r.json())
+        .then(data => {
+          localDeposits = data;
+          renderDeposits();
+        })
+        .catch(() => renderDeposits());
+    }
+
+    /* ── PROPERTIES ── */
+    function loadProperties() {
+      fetch(API + '/get_properties')
+        .then(r => r.json())
+        .then(props => {
+          const grid = document.getElementById('propGrid');
+          if (!props.length) {
+            grid.innerHTML = '<p style="opacity:.7;color:white">No properties listed yet.</p>';
+            return;
+          }
+          grid.innerHTML = props.map(p => `
+        <div class="prop-card ${p.available ? '' : 'unavailable'}">
+          <img class="prop-img" src="${p.image}" alt="${p.name}"
+            onerror="this.src='https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80'">
+          <div class="prop-body">
+            <div class="prop-name">${p.name}</div>
+            <div class="prop-loc">
+              <span>📍 ${p.location}</span>
+              <span class="badge ${p.available ? 'avail' : 'unavail'}">
+                ${p.available ? 'Available' : 'Unavailable'}
+              </span>
+            </div>
+            <div class="prop-meta">
+              <div class="prop-meta-item">
+                <small>Monthly Rent</small>
+                <strong>₹${p.rent.toLocaleString('en-IN')}</strong>
+              </div>
+              <div class="prop-meta-item">
+                <small>Deposit</small>
+                <strong>${p.deposit_months} Months</strong>
+              </div>
+              <div class="prop-meta-item">
+                <small>Total Deposit</small>
+                <strong>₹${(p.rent * p.deposit_months).toLocaleString('en-IN')}</strong>
+              </div>
+            </div>
+            <div class="prop-desc">${p.description}</div>
+            <div class="prop-actions">
+              <button class="btn-details" onclick="viewDetails(${p.id})">View Details</button>
+              <button class="btn-toggle" title="Toggle" onclick="toggleAvail(${p.id})">🔄</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+        })
+        .catch(() => {
+          document.getElementById('propGrid').innerHTML =
+            '<p style="opacity:.7;color:white">⚠️ Cannot connect to backend. Make sure Flask is running on port 5000.</p>';
+        });
+    }
+
+    function viewDetails(id) {
+      Promise.all([
+        fetch(API + '/get_property/' + id).then(r => r.json()),
+        fetch(API + '/property_deposit/' + id).then(r => r.json())
+      ]).then(([p, dep]) => {
+        document.getElementById('mImg').src = p.image;
+        document.getElementById('mName').textContent = p.name;
+        document.getElementById('mLoc').textContent = '📍 ' + p.location;
+        document.getElementById('mRent').textContent = '₹' + p.rent.toLocaleString('en-IN') + '/mo';
+        document.getElementById('mMonths').textContent = p.deposit_months + ' Months';
+        document.getElementById('mDeposit').textContent = '₹' + dep.deposit_amount.toLocaleString('en-IN');
+        document.getElementById('mDesc').textContent = p.description;
+        document.getElementById('modalBg').classList.add('open');
+      });
+    }
+
+    function closeBg(e) {
+      if (e.target === document.getElementById('modalBg'))
+        document.getElementById('modalBg').classList.remove('open');
+    }
+
+    function toggleAvail(id) {
+      fetch(API + '/toggle_availability/' + id, {method: 'PATCH'}).then(() => loadProperties());
+    }
+
+    function toggleAddProp() {
+      document.getElementById('addPropForm').classList.toggle('open');
+    }
+
+    function addProperty() {
+      fetch(API + '/add_property', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          name: document.getElementById('pName').value,
+          location: document.getElementById('pLocation').value,
+          rent: parseFloat(document.getElementById('pRent').value),
+          deposit_months: parseInt(document.getElementById('pMonths').value),
+          description: document.getElementById('pDesc').value,
+          image: document.getElementById('pImage').value || undefined
+        })
+      }).then(() => {
+        loadProperties();
+        document.getElementById('addPropForm').classList.remove('open');
+        ['pName', 'pLocation', 'pRent', 'pMonths', 'pDesc', 'pImage']
+          .forEach(id => document.getElementById(id).value = '');
+      });
+    }
+
+    // init
+    loadDeposits();
+  </script>
+</body>
+
+</html>
